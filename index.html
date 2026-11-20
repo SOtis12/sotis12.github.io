@@ -3,137 +3,321 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101613">
-<meta name="description" content="Samuel Otis explores computer systems, networking, and how software works when connectivity is intermittent.">
+<meta name="theme-color" content="#101615">
+<meta name="description" content="Samuel Otis explores computer systems, offline networking, and secure file transfer.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Samuel Otis — Systems & Networking">
-<meta property="og:description" content="Projects in computer systems, networking, and secure offline file transfer.">
+<meta property="og:title" content="Samuel Otis — Systems &amp; Networking">
+<meta property="og:description" content="A portfolio in computer systems, offline networking, and secure file transfer.">
 <meta property="og:url" content="https://samuelotis.com/">
+<link rel="canonical" href="https://samuelotis.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101615'/%3E%3Cpath d='M7 22l9-12 9 8' fill='none' stroke='%23ff8a65' stroke-width='2'/%3E%3Ccircle cx='16' cy='10' r='3' fill='%23ff8a65'/%3E%3C/svg%3E">
 <title>Samuel Otis — Systems &amp; Networking</title>
 <style>
 :root {
-  color-scheme: dark;
-  --background: #101613; --panel: #17211c; --ink: #f0f2e9;
-  --muted: #b8c4b9; --accent: #cafa91; --line: #35463b;
-  --mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --night: #101615;
+  --ink: #171c1b;
+  --white: #f5f3e8;
+  --paper: #f1eee4;
+  --quiet: #adbab1;
+  --orange: #ff8a65;
+  --rust: #942f19;
+  --rule: #c7c6ba;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --gutter: clamp(1.25rem, 5.5vw, 6.5rem);
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body {
-  margin: 0; background: var(--background); color: var(--ink);
-  font: 1rem/1.6 system-ui, sans-serif;
-}
+body { margin: 0; color: var(--ink); background: var(--night); font: 1rem/1.55 var(--sans); }
+h1, h2, h3, p, figure { margin: 0; }
 a { color: inherit; }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
-.wrap { width: min(100% - 3rem, 72rem); margin-inline: auto; }
-.skip { position: absolute; left: 1rem; top: 1rem; padding: .6rem 1rem; background: var(--background); transform: translateY(-160%); z-index: 2; }
+button { font: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+[hidden] { display: none !important; }
+.frame { width: min(100%, 104rem); margin-inline: auto; padding-inline: var(--gutter); }
+.skip { position: absolute; z-index: 9; top: .75rem; left: .75rem; padding: .75rem 1rem; background: var(--paper); transform: translateY(-160%); }
 .skip:focus { transform: none; }
-.site-header { border-bottom: 1px solid var(--line); }
-.bar { min-height: 4.7rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-.mark {
-  width: 2.55rem; height: 2.55rem; display: grid; place-items: center;
-  border: 1px solid var(--line); color: var(--accent); text-decoration: none;
-  font: bold .82rem var(--mono);
+.dark { color: var(--white); }
+header { position: relative; z-index: 1; }
+.topbar { min-height: 5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #ffffff29; }
+.brand { display: inline-flex; align-items: center; gap: .75rem; font-size: .9rem; font-weight: 650; text-decoration: none; }
+.brand svg { color: var(--orange); }
+nav, .footer-links { display: flex; gap: clamp(1.25rem, 3vw, 3rem); align-items: center; }
+nav a, .footer-links a { font-size: .9rem; text-decoration: none; }
+nav a:hover, .footer-links a:hover { text-decoration: underline; text-underline-offset: .38em; }
+.hero { position: relative; isolation: isolate; overflow: hidden; }
+.hero-inner { min-height: clamp(37rem, 53vw, 54rem); display: grid; align-items: center; position: relative; }
+.hero-copy { position: relative; z-index: 1; padding: clamp(3rem, 7vw, 7rem) 0; width: fit-content; }
+.kicker { font: 600 .8rem/1.45 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+.hero .kicker { color: var(--orange); margin-bottom: clamp(1.6rem, 4vw, 3rem); }
+h1 { font: 400 clamp(5.2rem, 12vw, 12.9rem)/.79 var(--serif); letter-spacing: -.083em; }
+h1 em { display: block; font-weight: 400; padding-inline-start: .15em; color: #e5e6d9; }
+.hero-intro { max-width: 32ch; margin-top: clamp(1.6rem, 4vw, 3rem); color: #d6ddd2; font-size: clamp(1rem, 1.48vw, 1.24rem); }
+.jump { display: inline-flex; align-items: center; min-height: 2.75rem; gap: .65rem; margin-top: 1rem; font-size: .91rem; font-weight: 650; text-decoration: underline; text-decoration-color: #f5f3e880; text-underline-offset: .38em; }
+.jump::before { content: ""; width: .48rem; height: .48rem; border-radius: 50%; background: var(--orange); transition: transform .2s; }
+.jump:hover::before { transform: scale(1.45); }
+.hero-art { position: absolute; inset: 0 0 0 29%; background: radial-gradient(ellipse at 59% 52%, #21302a, #101615 70%); }
+.hero-art canvas { display: block; width: 100%; height: 100%; }
+.hero-art::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, #101615 1%, transparent 27%); }
+.work { background: var(--paper); padding-block: clamp(3.7rem, 8vw, 8.5rem); }
+.work .kicker { color: var(--rust); }
+.work-head { display: grid; grid-template-columns: 1.25fr .75fr; gap: clamp(1.25rem, 4vw, 5rem); align-items: end; border-bottom: 1px solid var(--rule); padding-block: 1.1rem clamp(1.5rem, 4vw, 3.5rem); }
+h2 { font: 400 clamp(4rem, 11vw, 10rem)/.88 var(--serif); letter-spacing: -.078em; }
+.work-head p { max-width: 37ch; font-size: clamp(1rem, 1.6vw, 1.27rem); color: #37403a; }
+.demo { display: grid; grid-template-columns: 1.65fr 1fr; margin-top: clamp(1.5rem, 4vw, 3.5rem); border: 1px solid var(--rule); }
+.route-art { --route-bg: #dfE6dd; background: var(--route-bg); position: relative; min-height: 22rem; display: grid; place-items: center; overflow: hidden; }
+.route-art::before { content: ""; position: absolute; inset: 0; background: radial-gradient(#586d5543 1px, transparent 1.2px) center / 16px 16px; mask-image: radial-gradient(ellipse, black 30%, transparent 95%); }
+.route-art svg { width: 100%; height: auto; max-width: 46rem; position: relative; overflow: visible; }
+.route-art text { fill: #25382e; font: 600 15px var(--mono); text-anchor: middle; }
+.route-art .contour { fill: none; stroke: #879a895c; stroke-width: 1; }
+.route-art .trace { fill: none; stroke: #526a59; stroke-width: 1.5; stroke-dasharray: 4 5; }
+.route-art .halo { fill: var(--route-bg); stroke: #526a59; }
+.route-art .point { fill: #526a59; }
+.route-art .packet { fill: #a1371e; stroke: var(--route-bg); stroke-width: 3; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.demo-copy { min-width: 0; padding: clamp(1.4rem, 3vw, 3rem); align-self: center; }
+.demo-copy h3 { font: 400 clamp(1.9rem, 3.4vw, 3.15rem)/1 var(--serif); letter-spacing: -.055em; margin-top: .7rem; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .3rem; margin-block: 1.45rem; }
+.steps button { min-width: 0; min-height: 2.75rem; padding: .35rem .2rem; background: transparent; color: var(--ink); border: 1px solid #9a9f92; cursor: pointer; font-size: .88rem; }
+.steps button:hover { background: #e0e4d8; }
+.steps button[aria-pressed="true"] { background: var(--night); color: var(--white); border-color: var(--night); }
+.steps button:focus-visible { outline-color: var(--rust); }
+.step-text { color: #37403a; min-height: 5.2em; }
+.sequence { padding-left: 1.2em; color: #37403a; }
+.sequence li + li { margin-top: .5em; }
+.footer { padding-block: clamp(2rem, 5vw, 4rem); }
+.footer-inner { display: flex; gap: 1rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.footer-name { font: 400 clamp(1.75rem, 4vw, 3.5rem)/1 var(--serif); letter-spacing: -.05em; }
+.footer-links { color: #d6ddd2; }
+@media (max-width: 60rem) {
+  .hero-art { left: 23%; right: -11%; }
+  .demo { grid-template-columns: 1.2fr 1fr; }
+  .route-art { min-height: 19rem; }
 }
-nav { display: flex; flex-wrap: wrap; gap: clamp(.9rem, 3vw, 2.5rem); }
-nav a, footer a { text-decoration-color: var(--line); text-underline-offset: .35em; }
-nav a:hover, footer a:hover { color: var(--accent); text-decoration-color: currentColor; }
-.hero {
-  padding-block: clamp(5rem, 11vw, 9.5rem);
-  display: grid; grid-template-columns: 1.2fr 1fr; align-items: end;
-  gap: clamp(1.5rem, 5vw, 5rem); border-bottom: 1px solid var(--line);
+@media (max-width: 46rem) {
+  .topbar { min-height: 4rem; }
+  .hero-inner { display: block; min-height: auto; }
+  .hero-copy { padding: 3rem 0 0; width: 100%; }
+  .hero .kicker { margin-bottom: 1.6rem; }
+  h1 { font-size: clamp(3.75rem, 15.5vw, 6.2rem); }
+  .hero-intro { margin-top: 1.35rem; }
+  .hero-art { position: relative; inset: auto; width: calc(100% + 2 * var(--gutter)); margin-inline: calc(-1 * var(--gutter)); height: clamp(15rem, 62vw, 23rem); margin-top: -.7rem; }
+  .hero-art::after { background: linear-gradient(180deg, #101615 0%, transparent 24%); }
+  .work-head, .demo { grid-template-columns: 1fr; }
+  h2 { font-size: clamp(3.35rem, 12vw, 5.35rem); }
+  .route-art { min-height: clamp(12rem, 56vw, 21rem); }
+  .demo-copy { padding: 1.45rem; }
+  .step-text { min-height: 4.7em; }
 }
-.eyebrow { margin: 0 0 1.2rem; color: var(--accent); font: .79rem/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
-h1, h2, h3, p { margin-top: 0; }
-h1 {
-  margin-bottom: 0; font-size: clamp(4rem, 10.5vw, 9.5rem);
-  font-weight: 650; line-height: .87; letter-spacing: -.085em;
+@media (max-width: 23rem) {
+  .brand { gap: .35rem; }
+  nav { gap: .85rem; }
 }
-h1 span { display: block; }
-.hero-copy { max-width: 31rem; }
-.hero-copy p { font-size: clamp(1.25rem, 2.6vw, 1.9rem); line-height: 1.4; letter-spacing: -.025em; margin-bottom: 1.7rem; }
-.jump { display: inline-flex; align-items: center; gap: .75rem; color: var(--accent); text-decoration: none; font: .87rem var(--mono); border-bottom: 1px solid var(--line); padding-bottom: .5rem; }
-.jump:hover { border-color: var(--accent); }
-.work { padding-block: clamp(3rem, 7vw, 6rem); }
-.work > h2 { margin-bottom: 1.15rem; }
-.feature { display: grid; grid-template-columns: 1fr 1.06fr; border: 1px solid var(--line); background: var(--panel); }
-.feature-copy { padding: clamp(1.4rem, 4vw, 3.5rem); }
-.feature h3 { margin-bottom: 1rem; font-size: clamp(2.6rem, 5.5vw, 5.5rem); line-height: 1; letter-spacing: -.075em; }
-.feature-copy > p { color: var(--muted); max-width: 33ch; font-size: clamp(1.04rem, 1.7vw, 1.2rem); }
-.topics { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 1.6rem 0 0; }
-.topics li { border: 1px solid var(--line); padding: .38rem .58rem; font: .72rem/1.4 var(--mono); }
-.route {
-  margin: 0; display: grid; align-content: center; gap: 1.25rem;
-  min-height: 20rem; padding: clamp(1.4rem, 4vw, 3.2rem);
-  border-left: 1px solid var(--line);
-  background-color: #142019;
-  background-image: radial-gradient(#476152 1px, transparent 1px), radial-gradient(ellipse at center, #294633, transparent 75%);
-  background-size: 18px 18px, 100% 100%;
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
 }
-.route figcaption { color: var(--muted); font: .78rem/1.5 var(--mono); }
-.route ol { display: grid; grid-template-columns: repeat(3, 1fr); gap: .3rem; position: relative; margin: 0; padding: 0; list-style: none; }
-.route ol::before { content: ""; position: absolute; top: 1.25rem; left: 16.67%; right: 16.67%; border-top: 1px dashed var(--accent); }
-.route li { position: relative; display: grid; justify-items: center; gap: .7rem; color: var(--ink); font: .73rem/1.35 var(--mono); text-align: center; }
-.node { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; background: #1d2d23; border: 1px solid var(--accent); border-radius: 50%; color: var(--accent); }
-.relay .node { background: var(--accent); color: #142019; }
-footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
-@media (max-width: 48rem) {
-  .hero, .feature { grid-template-columns: 1fr; }
-  .hero { align-items: start; gap: 2rem; }
-  .route { border-left: 0; border-top: 1px solid var(--line); min-height: 15rem; }
-}
-@media (max-width: 25rem) {
-  .wrap { width: calc(100% - 2rem); }
-  h1 { font-size: clamp(3.25rem, 15vw, 4rem); }
-}
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
 </head>
-<body>
+<body id="top">
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
-  <div class="bar wrap">
-    <a class="mark" href="/" aria-label="Samuel Otis, home">SO</a>
+<header class="dark frame">
+  <div class="topbar">
+    <a class="brand" href="./" aria-label="Samuel Otis, home">
+      <svg aria-hidden="true" width="26" height="25" viewBox="0 0 26 25" fill="none">
+        <path d="m3 20 10-15 10 10" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="3" cy="20" r="2.5" fill="currentColor"/><circle cx="13" cy="5" r="2.5" fill="currentColor"/><circle cx="23" cy="15" r="2.5" fill="currentColor"/>
+      </svg>
+      <span>Samuel Otis</span>
+    </a>
     <nav aria-label="Main navigation">
       <a href="#work">Work</a>
       <a href="https://github.com/SOtis12">GitHub</a>
     </nav>
   </div>
 </header>
-<main id="main" class="wrap">
-  <section class="hero" aria-labelledby="name">
-    <div>
-      <p class="eyebrow">Computer systems &amp; networking</p>
-      <h1 id="name">Samuel <span>Otis</span></h1>
-    </div>
-    <div class="hero-copy">
-      <p>I explore how software can move data securely when a network connection can’t be counted on.</p>
-      <a class="jump" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
+<main id="main" tabindex="-1">
+  <section class="hero dark" aria-labelledby="name">
+    <div class="frame hero-inner">
+      <div class="hero-copy">
+        <p class="kicker">Computer systems &amp; networking</p>
+        <h1 id="name">Samuel <em>Otis</em></h1>
+        <p class="hero-intro">I explore how software can move data securely when connectivity is unreliable.</p>
+        <a class="jump" href="#work">Explore selected work</a>
+      </div>
+      <div class="hero-art" aria-hidden="true"><canvas id="terrain"></canvas></div>
     </div>
   </section>
-  <section class="work" id="work" aria-labelledby="work-heading">
-    <h2 class="eyebrow" id="work-heading">Selected work</h2>
-    <article class="feature" aria-labelledby="project-title">
-      <div class="feature-copy">
-        <h3 id="project-title">Sneakernet</h3>
-        <p>An offline file transfer project that explores how people can carry encrypted files between devices on USB drives. A file can travel through several hands before it reaches its recipient.</p>
-        <ul class="topics" aria-label="Project topics">
-          <li>Offline networking</li><li>Encrypted transfer</li><li>Routing</li>
-        </ul>
+  <section class="work" id="work" aria-labelledby="project-title">
+    <div class="frame">
+      <p class="kicker">Selected project / Offline networking</p>
+      <div class="work-head">
+        <h2 id="project-title">Sneakernet</h2>
+        <p>An offline file transfer project that explores how a file can travel between devices on USB drives. Each person can carry the encrypted file part of the way.</p>
       </div>
-      <figure class="route">
-        <figcaption>Example route for an encrypted file</figcaption>
-        <ol>
-          <li><span class="node" aria-hidden="true">A</span>Sender</li>
-          <li class="relay"><span class="node" aria-hidden="true">B</span>USB handoff</li>
-          <li><span class="node" aria-hidden="true">C</span>Recipient</li>
-        </ol>
+      <figure class="demo">
+        <div class="route-art" aria-hidden="true">
+          <svg viewBox="0 0 590 292" focusable="false">
+            <g class="contour">
+              <ellipse cx="107" cy="180" rx="69" ry="47"/><ellipse cx="107" cy="180" rx="89" ry="63"/>
+              <ellipse cx="292" cy="86" rx="60" ry="45"/><ellipse cx="292" cy="86" rx="84" ry="61"/>
+              <ellipse cx="485" cy="167" rx="68" ry="48"/><ellipse cx="485" cy="167" rx="91" ry="65"/>
+            </g>
+            <path class="trace" d="M107 180 292 86 485 167"/>
+            <g>
+              <circle class="halo" cx="107" cy="180" r="13"/><circle class="point" cx="107" cy="180" r="4"/>
+              <circle class="halo" cx="292" cy="86" r="13"/><circle class="point" cx="292" cy="86" r="4"/>
+              <circle class="halo" cx="485" cy="167" r="13"/><circle class="point" cx="485" cy="167" r="4"/>
+            </g>
+            <circle id="packet" class="packet" cx="107" cy="180" r="8"/>
+            <text x="107" y="230">Sender</text><text x="292" y="43">Relay</text><text x="485" y="218">Recipient</text>
+          </svg>
+        </div>
+        <figcaption class="demo-copy">
+          <p class="kicker">Example route</p>
+          <h3>A file in transit</h3>
+          <div class="steps" role="group" aria-label="File transfer steps" hidden>
+            <button type="button" aria-pressed="true" aria-controls="step-text">Send</button>
+            <button type="button" aria-pressed="false" aria-controls="step-text">Relay</button>
+            <button type="button" aria-pressed="false" aria-controls="step-text">Receive</button>
+          </div>
+          <p class="step-text" id="step-text" aria-live="polite" hidden></p>
+          <ol class="sequence">
+            <li>The sender encrypts the file for the recipient and copies it to a USB drive.</li>
+            <li>A relay carries the encrypted file to the next person.</li>
+            <li>The recipient gets the encrypted file and decrypts it with their key.</li>
+          </ol>
+        </figcaption>
       </figure>
-    </article>
+    </div>
   </section>
 </main>
-<footer>
-  <div class="bar wrap"><span>Samuel Otis</span><a href="https://github.com/SOtis12">View GitHub profile <span aria-hidden="true">↗</span></a></div>
+<footer class="footer dark frame">
+  <div class="footer-inner">
+    <p class="footer-name">Samuel Otis</p>
+    <div class="footer-links">
+      <a href="https://github.com/SOtis12">GitHub profile</a>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
 </footer>
+<script>
+(() => {
+  const buttons = [...document.querySelectorAll('.steps button')];
+  const sequence = document.querySelector('.sequence');
+  const descriptions = [...sequence.children].map(item => item.textContent);
+  const description = document.querySelector('#step-text');
+  const packet = document.querySelector('#packet');
+  const positions = [[0, 0], [185, -94], [378, -13]];
+
+  function selectStep(index) {
+    buttons.forEach((button, step) => button.setAttribute('aria-pressed', String(step === index)));
+    description.textContent = descriptions[index];
+    const [x, y] = positions[index];
+    packet.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  buttons.forEach((button, index) => button.addEventListener('click', () => selectStep(index)));
+  selectStep(0);
+  description.hidden = false;
+  document.querySelector('.steps').hidden = false;
+  sequence.hidden = true;
+})();
+
+(() => {
+  const canvas = document.querySelector('#terrain');
+  const context = canvas.getContext('2d');
+  if (!context) return;
+
+  const hills = [
+    [.24, .67, .18, .19, .97],
+    [.47, .45, .24, .18, .67],
+    [.68, .26, .17, .14, 1.18],
+    [.77, .66, .17, .19, .61],
+    [.46, .82, .24, .13, .30]
+  ];
+  const stops = [[.17, .77], [.50, .39], [.79, .25]];
+  const route = [stops[0], [.26, .68], [.36, .64], [.41, .50], stops[1], [.60, .36], [.69, .29], stops[2]];
+
+  function elevation(u, v) {
+    const relief = hills.reduce((sum, [x, y, rx, ry, height]) => {
+      const distance = ((u - x) / rx) ** 2 + ((v - y) / ry) ** 2;
+      return sum + height * Math.exp(-distance);
+    }, 0);
+    const fade = Math.sin(Math.PI * u) * Math.sin(Math.PI * v);
+    return (relief + .065 * Math.sin(u * 41 + v * 13) * Math.sin(v * 36 - u * 7)) * fade;
+  }
+
+  function draw() {
+    const { width, height } = canvas.getBoundingClientRect();
+    if (!width || !height) return;
+    const density = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(width * density);
+    canvas.height = Math.round(height * density);
+    context.setTransform(density, 0, 0, density, 0, 0);
+    const scale = Math.min(width / 720, height / 545);
+    const project = (u, v) => [
+      width * .51 + scale * (560 * (u - .5) + 235 * (v - .5)),
+      height * .58 + scale * (160 * (v - .5) - 145 * (u - .5) - 195 * elevation(u, v))
+    ];
+
+    const gridCount = 62;
+    const samples = 110;
+    for (const horizontal of [true, false]) {
+      for (let line = 0; line <= gridCount; line++) {
+        const axis = line / gridCount;
+        context.beginPath();
+        for (let sample = 0; sample <= samples; sample++) {
+          const cross = sample / samples;
+          const [x, y] = horizontal ? project(cross, axis) : project(axis, cross);
+          if (sample === 0) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        }
+        const emphasis = Math.sin(Math.PI * axis);
+        context.strokeStyle = `rgba(154, 188, 160, ${(horizontal ? .43 : .18) * emphasis + .055})`;
+        context.lineWidth = horizontal ? .8 : .6;
+        context.stroke();
+      }
+    }
+
+    context.beginPath();
+    route.forEach(([endU, endV], index) => {
+      if (index === 0) {
+        context.moveTo(...project(endU, endV));
+        return;
+      }
+      const [startU, startV] = route[index - 1];
+      for (let step = 1; step <= 18; step++) {
+        const t = step / 18;
+        context.lineTo(...project(startU + (endU - startU) * t, startV + (endV - startV) * t));
+      }
+    });
+    context.strokeStyle = '#ff8a65';
+    context.lineWidth = 1.5;
+    context.setLineDash([3, 5]);
+    context.shadowBlur = 12;
+    context.shadowColor = '#ff7954';
+    context.stroke();
+    context.setLineDash([]);
+    context.shadowBlur = 0;
+
+    stops.forEach(([u, v]) => {
+      const [x, y] = project(u, v);
+      context.strokeStyle = '#ff8a6590';
+      context.lineWidth = 1;
+      context.beginPath();
+      context.arc(x, y, 11, 0, Math.PI * 2);
+      context.stroke();
+      context.fillStyle = '#ff9b79';
+      context.beginPath();
+      context.arc(x, y, 3.75, 0, Math.PI * 2);
+      context.fill();
+    });
+  }
+
+  new ResizeObserver(draw).observe(canvas);
+  draw();
+})();
+</script>
 </body>
 </html>
